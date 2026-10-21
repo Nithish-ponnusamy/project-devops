@@ -1,0 +1,25 @@
+
+name: DevOps Application CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Verify Dockerfile
+        run: test -f Dockerfile
+
+      - name: Validate application files
+        run: ls -la app
+
+      - name: Build Docker image
+        run: docker build -t devops-web-app .
